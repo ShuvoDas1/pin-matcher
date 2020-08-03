@@ -62,16 +62,19 @@
            document.getElementById('pinGeneratorInput').value = getRandomNumber(1000,9999);
            document.getElementById('pinMatchNotice').style.display = "none";
            document.getElementById('pinNotMatchNotice').style.display = "none";
+           document.getElementById('submitBtn').disabled = false;
+           document.getElementById('tryLeft').innerText = 3;
                      
         })
+        
+        // Generate Random Number
         function getRandomNumber(max,min){
             let generateRandomNumber = Math.ceil(Math.random()*(max-min)+min);
             return generateRandomNumber;
         }
 
         //Number Btn section
-
-        
+       
         function pushBtn(number){
             const inputLabel = document.getElementById('inputLabel');
             const pushedNumber = number.innerHTML ;
@@ -92,8 +95,12 @@
         document.getElementById('submitBtn').addEventListener('click',function(){
             const pinGenerateNumber = document.getElementById('pinGeneratorInput').value;
             const inputLabelNumber =  document.getElementById('inputLabel').value;
-            if(pinGenerateNumber == inputLabelNumber ){
+            if(inputLabelNumber == ''){
+                alert('Please enter  4-digit code');
+            }
+            else if(pinGenerateNumber == inputLabelNumber ){
                 document.getElementById('pinMatchNotice').style.display = "block";
+                document.getElementById('pinNotMatchNotice').style.display = "none";
             }
             else{
                 document.getElementById('pinNotMatchNotice').style.display = 'block';
