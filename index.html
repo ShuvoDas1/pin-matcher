@@ -18,28 +18,28 @@
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input class="form-control" type="text">
+                    <input id="inputLabel" class="form-control" type="text">
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
-                              <div class="button">7</div>
-                              <div class="button">8</div>
-                              <div class="button">9</div>
+                              <div onclick = "pushBtn(this)" class="button">7</div>
+                              <div onclick = "pushBtn(this)" class="button">8</div>
+                              <div onclick = "pushBtn(this)" class="button">9</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">4</div>
-                              <div class="button">5</div>
-                              <div class="button">6</div>
+                              <div onclick = "pushBtn(this)" class="button">4</div>
+                              <div onclick = "pushBtn(this)" class="button">5</div>
+                              <div onclick = "pushBtn(this)" class="button">6</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">1</div>
-                              <div class="button">2</div>
-                              <div class="button">3</div>
+                              <div onclick = "pushBtn(this)" class="button">1</div>
+                              <div onclick = "pushBtn(this)" class="button">2</div>
+                              <div onclick = "pushBtn(this)" class="button">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div class="button"><</div>
-                                <div class="button">0</div>
-                                <div class="button">C</div>
+                                <div onclick = "pushBtn(this)" class="button"><</div>
+                                <div onclick = "pushBtn(this)"  class="button">0</div>
+                                <div onclick = "pushBtn(this)" class="button">C</div>
                             </div>
                             <div>
                                 <button type="submit" class="submit-btn">Submit</button>
@@ -59,11 +59,23 @@
         // Pin Generator Section.
         const pinGenerateBtn =  document.getElementById('pinGenerateBtn');
         pinGenerateBtn.addEventListener('click',function(){
-            let randomGeneratePin = Math.ceil(Math.random()*(9999 - 1000))+1000;
-              console.log(randomGeneratePin);
-            
-            
+           document.getElementById('pinGeneratorInput').value = getRandomNumber(1000,9999);
+                     
         })
+        function getRandomNumber(max,min){
+            let generateRandomNumber = Math.ceil(Math.random()*(max-min)+min);
+            return generateRandomNumber;
+        }
+
+        //Number Btn section
+
+        const InputLabel = document.getElementById('inputLabel');
+        function pushBtn(number){
+            const pushedNumber = number.innerHTML ;
+            if(pushedNumber == "C"){
+                InputLabel.innerHTML = '';
+            }
+        }
     </script>
 
 </body>
