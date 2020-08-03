@@ -37,21 +37,21 @@
                               <div onclick = "pushBtn(this)" class="button">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div onclick = "pushBtn(this)" class="button"><</div>
+                                <div onclick = "pushBtn(this)" class="button"> < </div>
                                 <div onclick = "pushBtn(this)"  class="button">0</div>
                                 <div onclick = "pushBtn(this)" class="button">C</div>
                             </div>
                             <div>
-                                <button type="submit" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
+                                <button id="submitBtn" type="submit" class="submit-btn">Submit</button>
+                                <p class="action-left"> <span id="tryLeft">3</span> try left</p>
                             </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="notify-section">
-            <p class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p id="pinNotMatchNotice"  class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="pinMatchNotice"  class="notify">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
 
@@ -60,6 +60,8 @@
         const pinGenerateBtn =  document.getElementById('pinGenerateBtn');
         pinGenerateBtn.addEventListener('click',function(){
            document.getElementById('pinGeneratorInput').value = getRandomNumber(1000,9999);
+           document.getElementById('pinMatchNotice').style.display = "none";
+           document.getElementById('pinNotMatchNotice').style.display = "none";
                      
         })
         function getRandomNumber(max,min){
@@ -69,13 +71,41 @@
 
         //Number Btn section
 
-        const InputLabel = document.getElementById('inputLabel');
+        
         function pushBtn(number){
+            const inputLabel = document.getElementById('inputLabel');
             const pushedNumber = number.innerHTML ;
             if(pushedNumber == "C"){
-                InputLabel.innerHTML = '';
+                inputLabel.value = '';
+            }
+            else if(pushedNumber == " &lt; "){
+                
+                var number = document.getElementById("inputLabel").value;
+                document.getElementById("inputLabel").value = number.substr(0, number.length - 1);
+               
+            }
+            else{
+                inputLabel.value += pushedNumber;
             }
         }
+        //Submit Button Action
+        document.getElementById('submitBtn').addEventListener('click',function(){
+            const pinGenerateNumber = document.getElementById('pinGeneratorInput').value;
+            const inputLabelNumber =  document.getElementById('inputLabel').value;
+            if(pinGenerateNumber == inputLabelNumber ){
+                document.getElementById('pinMatchNotice').style.display = "block";
+            }
+            else{
+                document.getElementById('pinNotMatchNotice').style.display = 'block';
+                let tryLeftNumber = document.getElementById('tryLeft').innerText;
+                let newTryLeftNumber = tryLeftNumber - 1;
+                document.getElementById('tryLeft').innerText = newTryLeftNumber;
+                if(newTryLeftNumber == 0){
+                    document.getElementById('submitBtn').disabled = true;
+                }
+            }
+        })
+
     </script>
 
 </body>
